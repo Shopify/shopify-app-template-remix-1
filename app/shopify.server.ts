@@ -18,7 +18,11 @@ const shopify = shopifyApp({
   authPathPrefix: "/auth",
   sessionStorage: new PrismaSessionStorage(prisma),
   distribution: AppDistribution.AppStore,
+  useOnlineTokens: true,
   restResources,
+  logger: {
+    level: 3,
+  },
   webhooks: {
     APP_UNINSTALLED: {
       deliveryMethod: DeliveryMethod.Http,
@@ -33,6 +37,7 @@ const shopify = shopifyApp({
   future: {
     v3_webhookAdminContext: true,
     v3_authenticatePublic: true,
+    unstable_newEmbeddedAuthStrategy: true,
   },
   ...(process.env.SHOP_CUSTOM_DOMAIN
     ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
