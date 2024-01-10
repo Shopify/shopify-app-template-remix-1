@@ -11,8 +11,9 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: tgymnich/fork-sync@v1.8
+      - uses: tgymnich/fork-sync@v1.9
         with:
+          owner: shopify
           base: main
           head: main
           pr_title: Sync fork with upstream repo
