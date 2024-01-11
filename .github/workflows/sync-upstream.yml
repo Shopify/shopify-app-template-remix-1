@@ -1,0 +1,41 @@
+name: Sync main with upstream
+
+on:
+  schedule:
+    - cron:  '0 7 * * 1,4'
+    # scheduled at 07:00 every Monday and Thursday
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync_latest_from_upstream:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    name: Sync latest commits from upstream repo
+
+    steps:
+    - name: Checkout target repo
+      uses: actions/checkout@v4
+      with:
+        ref: main
+        fetch-depth: 0
+
+    - name: Setup git config
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Reset main_updates
+      run: |
+        git push origin --delete main_updates &>/dev/null || true
+        git switch -c main_updates
+        git push origin main_updates
+
+    - name: Sync upstream changes
+      run: |
+        gh repo sync shopify/example-app--credit-card-payments-app-template--remix -b main_updates --force
+        gh pr create -B main -H main_updates --title 'Sync main with upstream' --body 'This is an automated PR that syncs the repo with its upstream main'
