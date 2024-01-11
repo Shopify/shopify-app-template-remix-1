@@ -16,7 +16,8 @@
     "setup": "prisma generate && prisma migrate deploy",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "shopify": "shopify",
-    "prisma": "prisma"
+    "prisma": "prisma",
+    "graphql-codegen": "graphql-codegen"
   },
   "dependencies": {
     "@prisma/client": "^4.13.0",
@@ -27,16 +28,17 @@
     "@shopify/app": "^3.50.0",
     "@shopify/cli": "^3.50.0",
     "@shopify/polaris": "^12.0.0",
-    "@shopify/shopify-api": "^8.0.2",
-    "@shopify/shopify-app-remix": "^2.1.0",
-    "@shopify/shopify-app-session-storage-prisma": "^2.0.0",
-    "isbot": "latest",
+    "@shopify/shopify-api": "^9.0.1",
+    "@shopify/shopify-app-remix": "^2.3.0",
+    "@shopify/shopify-app-session-storage-prisma": "^2.0.3",
+    "isbot": "^4.1.0",
     "prisma": "^4.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@remix-run/eslint-config": "^2.0.0",
+    "@shopify/api-codegen-preset": "^0.0.1",
     "@shopify/app-bridge-types": "^0.0.3",
     "@types/eslint": "^8.40.0",
     "@types/node": "^20.6.3",
@@ -44,7 +46,7 @@
     "@types/react-dom": "^18.2.14",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.8.0",
-    "prettier": "^3.1.1",
+    "prettier": "^2.8.8",
     "typescript": "^5.2.2"
   },
   "workspaces": {
@@ -52,5 +54,7 @@
       "extensions/*"
     ]
   },
-  "trustedDependencies": ["@shopify/plugin-cloudflare"]
+  "trustedDependencies": [
+    "@shopify/plugin-cloudflare"
+  ]
 }
