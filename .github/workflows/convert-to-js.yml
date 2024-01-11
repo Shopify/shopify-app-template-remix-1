@@ -80,6 +80,7 @@ jobs:
       - name: Stage changes to files
         run: |
           git add .
+          git reset README.md
           git checkout -b temp_javascript_updates
           git commit -m "Convert template to Javascript"
           git checkout javascript
