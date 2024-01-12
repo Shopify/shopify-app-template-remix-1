@@ -6,7 +6,7 @@ import {
   LATEST_API_VERSION,
 } from "@shopify/shopify-app-remix/server";
 import { PrismaSessionStorage } from "@shopify/shopify-app-session-storage-prisma";
-import { restResources } from "@shopify/shopify-api/rest/admin/2023-10";
+import { restResources } from "@shopify/shopify-api/rest/admin/2024-01";
 import prisma from "./db.server";
 
 const shopify = shopifyApp({
@@ -16,7 +16,6 @@ const shopify = shopifyApp({
   scopes: process.env.SCOPES?.split(","),
   appUrl: process.env.SHOPIFY_APP_URL || "",
   authPathPrefix: "/auth",
-  isEmbeddedApp: false,
   sessionStorage: new PrismaSessionStorage(prisma),
   distribution: AppDistribution.AppStore,
   restResources,
@@ -30,6 +29,10 @@ const shopify = shopifyApp({
     afterAuth: async ({ session }) => {
       shopify.registerWebhooks({ session });
     },
+  },
+  future: {
+    v3_webhookAdminContext: true,
+    v3_authenticatePublic: true,
   },
   ...(process.env.SHOP_CUSTOM_DOMAIN
     ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
