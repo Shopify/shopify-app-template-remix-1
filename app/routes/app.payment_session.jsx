@@ -57,8 +57,6 @@ const processPayment = async (paymentSession) => {
   // Last name can be used to simulate a rejection or a 3DS session (optionally frictionless)
   if (firstName === "reject") {
     await client.rejectSession(paymentSession, { reasonCode: getRejectReason(lastName) });
-  } else if (firstName === "pending") {
-    await client.pendSession(paymentSession);
   } else if (firstName === "3ds") {
     const redirectUrl = three_d_secure_redirect_url(paymentSession.id, lastName === "FRICTIONLESS");
     await client.redirectSession(paymentSession, redirectUrl);
