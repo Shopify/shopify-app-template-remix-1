@@ -1,13 +1,9 @@
 import React from "react";
 import { json } from "@remix-run/node";
 import { Link, Outlet, useLoaderData, useRouteError } from "@remix-run/react";
-import { AppProvider as PolarisAppProvider } from "@shopify/polaris";
-import polarisStyles from "@shopify/polaris/build/esm/styles.css";
-import { boundary } from "@shopify/shopify-app-remix";
-
-import { authenticate } from "../shopify.server";
-
-export const links = () => [{ rel: "stylesheet", href: polarisStyles }];
+import { boundary } from "@shopify/shopify-app-remix/server";
+import { AppProvider as PolarisAppProvider } from "@shopify/shopify-app-remix/react";
+import "@shopify/polaris/build/esm/styles.css";
 
 export const loader = async ({ request }) => {
   return json({
